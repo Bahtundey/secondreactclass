@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 import Notfound from './pages/Notfound'
 import Card from './components/Card'
 import About from './pages/About'
+import Props from './pages/Props'
 // import SignUp from './pages/SignUPP'
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
         <Route path='/signin' element={<Signin/>}/>
         {/* <Route path='/signupp' element={<SignUp/>}/> */}
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/props' element={<Props/>}/>
         {/* <Route path='/my-about' element={<About/>}/>
         <Route path='/about' element={<Navigate to='/my-about'/>}/>
         <Route path='*' element={<Notfound/>}/> */}
