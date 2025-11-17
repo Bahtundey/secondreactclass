@@ -1,60 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [allUsers, setAllUsers] = useState([]);
+  const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
 
-  
-  useEffect(() => {
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      setAllUsers(JSON.parse(storedUsers));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userData = { firstname, lastname, email, password };
+
+    try {
+      if (isEditing) {
+        const updatedUsers = [...allUsers];
+        updatedUsers[editIndex] = userData;
+        setAllUsers(updatedUsers);
+        setIsEditing(false);
+        setEditIndex(null);
+      } else {
+        setAllUsers([...allUsers, userData]);
+      }
+
+      
+      const res = await axios.post('http://localhost:3600/user/signup', userData);
+      console.log('Response:', res.data);
+      alert('Signup successful! Please login.');
+      navigate('/signin'); 
+
+     
+      setFirstname('');
+      setLastname('');
+      setEmail('');
+      setPassword('');
+    } catch (err) {
+      console.error('Error', err.response ? err.response.data : err);
+      alert('Signup failed, try again');
     }
-  }, []);
-
-  
-  useEffect(() => {
-    localStorage.setItem('users', JSON.stringify(allUsers));
-  }, [allUsers]);
-
-  
-  const handleSubmit = () => {
-    if (isEditing) {
-      const updatedUsers = [...allUsers];
-      updatedUsers[editIndex] = { firstName, lastName, email, password };
-      setAllUsers(updatedUsers);
-      setIsEditing(false);
-      setEditIndex(null);
-    } else {
-      const userData = { firstName, lastName, email, password };
-      setAllUsers([...allUsers, userData]);
-    }
-
-    
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
   };
 
-  
   const handleEdit = (index) => {
     const userToEdit = allUsers[index];
-    setFirstName(userToEdit.firstName);
-    setLastName(userToEdit.lastName);
+    setFirstname(userToEdit.firstname);
+    setLastname(userToEdit.lastname);
     setEmail(userToEdit.email);
     setPassword(userToEdit.password);
     setIsEditing(true);
     setEditIndex(index);
   };
 
- 
   const handleDelete = (index) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       const remainingUsers = allUsers.filter((_, i) => i !== index);
@@ -64,15 +65,17 @@ const Signup = () => {
 
   return (
     <>
-      
-      <form className="d-block mx-auto w-50 p-4 border rounded-3 mt-5 bg-success-subtle shadow">
+      <form
+        className="d-block mx-auto w-50 p-4 border rounded-3 mt-5 bg-primary-subtle shadow"
+        onSubmit={handleSubmit}
+      >
         <div className="text-center fs-4 fw-bold mb-3">
           {isEditing ? 'EDIT USER' : 'SIGNUP'}
         </div>
 
         <input
-          onChange={(e) => setFirstName(e.target.value)}
-          value={firstName}
+          onChange={(e) => setFirstname(e.target.value)}
+          value={firstname}
           type="text"
           className="form-control mb-3"
           placeholder="First Name"
@@ -80,8 +83,8 @@ const Signup = () => {
         />
 
         <input
-          onChange={(e) => setLastName(e.target.value)}
-          value={lastName}
+          onChange={(e) => setLastname(e.target.value)}
+          value={lastname}
           type="text"
           className="form-control mb-3"
           placeholder="Last Name"
@@ -107,15 +110,13 @@ const Signup = () => {
         />
 
         <button
-          onClick={handleSubmit}
-          type="button"
+          type="submit"
           className={`btn ${isEditing ? 'btn-warning' : 'btn-primary'} w-100 p-2 rounded-2`}
         >
           {isEditing ? 'Update User' : 'Signup'}
         </button>
       </form>
 
-      
       <div className="container mt-5">
         <div className="row justify-content-center">
           {allUsers.map((user, index) => (
@@ -134,7 +135,7 @@ const Signup = () => {
               >
                 <div className="card-body">
                   <h5 className="card-title">
-                    {user.firstName} {user.lastName}
+                    {user.firstname} {user.lastname}
                   </h5>
                   <p className="card-text mb-1">
                     <strong>Email:</strong> {user.email}

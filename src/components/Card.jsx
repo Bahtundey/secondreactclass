@@ -1,9 +1,9 @@
 import React from 'react'
 import myLogo from '../assets/react.svg'
-const Card = () => {
+const Card = ({yellow}) => {
   return (
     <>
-      <div className="card" style={{width: '500px'}}>
+      <div className="card" style={{width: '200px'}}>
   <img src={myLogo} className="card-img-top" alt="..."/>
   <div className="card-body">
     <h5 className="card-title">Card title</h5>

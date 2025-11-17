@@ -1,11 +1,13 @@
 import React from 'react'
 
-const Btn = (props) => {
-    console.log(props.title)
+const Btn = ({title, color, text}) => {
+    // console.log(title, color, text);
   return (
     <>
-      <button className={props.color}>
-       {props.title}
+      <button className={`${text} ${color}`}>
+        
+        {title}
+      
         </button>
     </>
   )

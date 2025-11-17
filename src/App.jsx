@@ -8,9 +8,12 @@ import Footer from './pages/Footer'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
 import Notfound from './pages/Notfound'
-import Card from './components/Card'
 import About from './pages/About'
 import Props from './pages/Props'
+import Card from './components/Card'
+import Cardsprops from './pages/Cardsprops'
+
+
 // import SignUp from './pages/SignUPP'
 
 const App = () => {
@@ -25,6 +28,7 @@ const App = () => {
         {/* <Route path='/signupp' element={<SignUp/>}/> */}
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/props' element={<Props/>}/>
+        <Route path='/cardsprops' element={<Cardsprops/>}/>
         {/* <Route path='/my-about' element={<About/>}/>
         <Route path='/about' element={<Navigate to='/my-about'/>}/>
         <Route path='*' element={<Notfound/>}/> */}
