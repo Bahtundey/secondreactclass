@@ -18,7 +18,7 @@ const Signin = () => {
     const userData = { email, password };
 
     try {
-      const res = await axios.post('http://localhost:3600/user/signin', userData);
+      const res = await axios.post('https://mongoose-sgu0.onrender.com/user/signin', userData);
 
       console.log('Response:', res.data);
 
