@@ -108,7 +108,7 @@ const Signup = () => {
           placeholder="Password"
           required
         />
-
+        <p>helloword</p>
         <button
           type="submit"
           className={`btn ${isEditing ? 'btn-warning' : 'btn-primary'} w-100 p-2 rounded-2`}
