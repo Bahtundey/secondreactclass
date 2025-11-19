@@ -30,7 +30,7 @@ const Signup = () => {
       }
 
       
-      const res = await axios.post('https://mongoose-sgu0.onrender.com/user/signup', userData);
+      const res = await axios.post('https://mongoose-6682.onrender.com/user/signup', userData);
       console.log('Response:', res.data);
       alert('Signup successful! Please login.');
       navigate('/signin'); 
