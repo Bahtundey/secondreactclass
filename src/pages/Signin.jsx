@@ -22,7 +22,9 @@ const Signin = () => {
 
       console.log('Response:', res.data);
 
-      if (res.data.success === true) {
+      if (res.data.token) {
+        localStorage.setItem('token', res.data.token)
+        
         alert('Signin successful! Welcome back.');
         navigate('/dashboard'); 
       } else {
